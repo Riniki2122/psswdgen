@@ -1,0 +1,84 @@
+body {
+  font-family: 'Fredoka One', cursive;
+}
+
+    
+      .container {
+        text-align: center;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 18px;
+      }
+
+      input[type=number] {
+        width: 100px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type=text] {
+        width: 300px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type=button] {
+        width: 150px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        font-family: 'Fredoka One', sans-serif;
+      }
+
+      h5 {
+        color: green;
+        font-family: 'Fredoka One', sans-serif;
+      }
+      body {
+  background: linear-gradient(to right, #40E0D0, #FF0080);
+}
+
+.check-all-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.check-all-btn:hover {
+  background-color: #3e8e41;
+}
+
+.check-all-btn:active {
+  background-color: #1f4b1c;
+}
+
+
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5);
+  }

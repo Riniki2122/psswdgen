@@ -1,0 +1,338 @@
+<html>
+  <head>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Password Generator</h2>
+
+
+      
+      <button class="check-all-btn" onclick="toggleCheck()">Check All</button>
+
+
+      <br></br>
+
+<label for="uppercase">
+  <input type="checkbox" id="uppercase" name="uppercase" value="uppercase">
+  Include uppercase letters
+</label>
+<label for="lowercase">
+  <input type="checkbox" id="lowercase" name="lowercase" value="lowercase">
+  Include lowercase letters
+</label>
+<label for="numbers">
+  <input type="checkbox" id="numbers" name="numbers" value="numbers">
+  Include numbers
+</label>
+<label for="symbols">
+  <input type="checkbox" id="symbols" name="symbols" value="symbols">
+  Include symbols
+</label>
+      <br></br>
+      <label for="length">Password Length:</label>
+      <input type="number" id="length" name="length" min="8" max="128">
+
+      <br><br>
+
+      <input type="button" value="Generate Password" onclick="generatePassword()">
+
+      <br><br>
+
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" readonly>
+
+      <br><br>
+
+      <input type="button" value="Copy Password" onclick="copyPassword()">
+
+      <br><br>
+      <h5 id="error" style="display: none; color: red;"></h5>
+      <h5 id="message" style="display: none;"></h5>
+      
+    </div>
+
+  </body>
+</html>
+
+
+<style>
+  body {
+  font-family: 'Fredoka One', cursive;
+}
+
+    
+      .container {
+        text-align: center;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 18px;
+      }
+
+      input[type=number] {
+        width: 100px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type=text] {
+        width: 300px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type=button] {
+        width: 150px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        font-family: 'Fredoka One', sans-serif;
+      }
+
+      h5 {
+        color: green;
+        font-family: 'Fredoka One', sans-serif;
+      }
+      body {
+  background: linear-gradient(to right, #40E0D0, #FF0080);
+}
+
+.check-all-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.check-all-btn:hover {
+  background-color: #3e8e41;
+}
+
+.check-all-btn:active {
+  background-color: #1f4b1c;
+}
+
+
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5);
+  }
+
+</style>
+
+<script>
+  function generatePassword() {
+  var length = document.getElementById("length").value;
+  if (length < 8) {
+    var error = document.getElementById("error");
+    error.innerHTML = "Must be at least 8 characters.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+  if (length > 128) {
+    var error = document.getElementById("error")
+    error.innerHTML = "Too many characters.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+
+  var uppercase = document.getElementById("uppercase").checked;
+  var lowercase = document.getElementById("lowercase").checked;
+  var numbers = document.getElementById("numbers").checked;
+  var symbols = document.getElementById("symbols").checked;
+
+  var characters = "";
+  if (uppercase) {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if (lowercase) {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+  }
+  if (numbers) {
+    characters += "0123456789";
+  }
+  if (symbols) {
+    characters += "!@#$%^&*()_+-=[]{}|;':\",.<>/?`~";
+  }
+
+  if (characters === "") {
+    var error = document.getElementById("error")
+    error.innerHTML = "Please select at least one character type.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+
+  var password = "";
+  for (var i = 0; i < length; i++) {
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  document.getElementById("password").value = password;
+}
+
+
+
+      function copyPassword() {
+        var password = document.getElementById("password");
+        password.select();
+        document.execCommand("copy");
+
+        var message = document.getElementById("message");
+        message.innerHTML = "Password copied to clipboard.";
+                message.style.display = "block";
+        setTimeout(function() {
+          message.style.display = "none";
+        }, 3000);
+      }
+
+function toggleCheck() {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var checkAllBtn = document.querySelector('.check-all-btn');
+  var checked = checkAllBtn.classList.contains('unchecked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].checked = !checked;
+  }
+
+  if (checked) {
+    checkAllBtn.textContent = 'Check All';
+    checkAllBtn.classList.remove('unchecked');
+  } else {
+    checkAllBtn.textContent = 'Uncheck All';
+    checkAllBtn.classList.add('unchecked');
+  }
+}
+
+var checkAllBtn = document.querySelector('.check-all-btn');
+checkAllBtn.addEventListener('click', toggleCheck);
+
+function generatePassword() {
+  var length = document.getElementById("length").value;
+  if (length < 8) {
+    var error = document.getElementById("error");
+    error.innerHTML = "Must be at least 8 characters.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+  if (length > 128) {
+    var error = document.getElementById("error")
+    error.innerHTML = "Too many characters.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+
+  var uppercase = document.getElementById("uppercase").checked;
+  var lowercase = document.getElementById("lowercase").checked;
+  var numbers = document.getElementById("numbers").checked;
+  var symbols = document.getElementById("symbols").checked;
+
+  var characters = "";
+  if (uppercase) {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if (lowercase) {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+  }
+  if (numbers) {
+    characters += "0123456789";
+  }
+  if (symbols) {
+    characters += "!@#$%^&*()_+-=[]{}|;':\",.<>/?`~";
+  }
+
+  if (characters === "") {
+    var error = document.getElementById("error")
+    error.innerHTML = "Please select at least one character type.";
+    error.style.display = "block";
+    setTimeout(function() {
+      error.style.display = "none";
+    }, 3000);
+    return;
+  }
+
+  var password = "";
+  for (var i = 0; i < length; i++) {
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  document.getElementById("password").value = password;
+}
+
+
+
+      function copyPassword() {
+        var password = document.getElementById("password");
+        password.select();
+        document.execCommand("copy");
+
+        var message = document.getElementById("message");
+        message.innerHTML = "Password copied to clipboard.";
+                message.style.display = "block";
+        setTimeout(function() {
+          message.style.display = "none";
+        }, 3000);
+      }
+
+function toggleCheck() {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var checkAllBtn = document.querySelector('.check-all-btn');
+  var checked = checkAllBtn.classList.contains('unchecked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].checked = !checked;
+  }
+
+  if (checked) {
+    checkAllBtn.textContent = 'Check All';
+    checkAllBtn.classList.remove('unchecked');
+  } else {
+    checkAllBtn.textContent = 'Uncheck All';
+    checkAllBtn.classList.add('unchecked');
+  }
+}
+
+var checkAllBtn = document.querySelector('.check-all-btn');
+checkAllBtn.addEventListener('click', toggleCheck);
+
+
+</script>
